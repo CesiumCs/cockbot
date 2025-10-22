@@ -37,3 +37,10 @@ client.on(Events.MessageCreate, message => {
         )
     }
 });
+
+// funny auto mpreg react
+client.on(Events.MessageReactionAdd, (reaction, user) => {
+    if (reaction.emoji.name === 'pregnant_man' && !user.bot) {
+        reaction.message.react('🤰')
+    }
+})
