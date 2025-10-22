@@ -1,4 +1,4 @@
-const config = require('./config.json');
+const token = process.env.DISCORD_TOKEN
 
 // the basic discord setup stuff yoinked from their guide
 const { Client, Events, GatewayIntentBits, Partials } = require('discord.js');
@@ -17,7 +17,7 @@ const client = new Client({
 client.once(Events.ClientReady, readyClient => {
 	console.log(`Discord: Connected as ${readyClient.user.tag}`);
 });
-client.login(config.token);
+client.login(token);
 
 client.on(Events.MessageCreate, message => {
     // if we smell a twitter link, girlcock it!
