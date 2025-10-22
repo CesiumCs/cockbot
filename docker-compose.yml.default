@@ -3,4 +3,4 @@ services:
     restart: unless-stopped
     build: .
     environment:
-      - DISCORD_TOKEN="token go here"
+      - DISCORD_TOKEN=token go here
