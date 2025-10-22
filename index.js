@@ -1,7 +1,7 @@
 const token = process.env.DISCORD_TOKEN
 
 // the basic discord setup stuff yoinked from their guide
-const { Client, Events, GatewayIntentBits, Partials } = require('discord.js');
+const { Client, Events, GatewayIntentBits, Partials, ActivityType } = require('discord.js');
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds, 
@@ -16,6 +16,7 @@ const client = new Client({
 });
 client.once(Events.ClientReady, readyClient => {
 	console.log(`Discord: Connected as ${readyClient.user.tag}`);
+    client.user.setActivity('for x.com links', { type: ActivityType.Watching });
 });
 client.login(token);
 
