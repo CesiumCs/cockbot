@@ -16,6 +16,7 @@ const client = new Client({
 });
 client.once(Events.ClientReady, readyClient => {
 	console.log(`Discord: Connected as ${readyClient.user.tag}`);
+    client.user.setActivity('for x.com links', { type: ActivityType.Watching });
 });
 client.login(token);
 
