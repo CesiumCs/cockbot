@@ -13,7 +13,8 @@ const client = new Client({
     partials: [
         Partials.Channel,
         Partials.Message,
-        Partials.Reaction
+        Partials.Reaction,
+        Partials.User
       ]
 });
 client.once(Events.ClientReady, readyClient => {
@@ -42,7 +43,7 @@ client.on(Events.MessageCreate, message => {
 
 // funny auto mpreg react
 client.on(Events.MessageReactionAdd, (reaction, user) => {
-    if (reaction.emoji.name === 'pregnant_man' && !user.bot) {
+    if (reaction.emoji.name === '🫃' && !user.bot) {
         reaction.message.react('🫃')
     }
 })
