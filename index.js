@@ -30,7 +30,8 @@ client.on(Events.MessageCreate, message => {
         const cocklink = `https://girlcockx.com/${profile}/status/${stub}`
         console.log(`Girlcock: Converted to ${cocklink}`)
         message.channel.send(cocklink)
-        message.suppressEmbeds().catch(err => // this bit is ai generated because i am lazy
+        message.suppressEmbeds().catch(err =>
+            // this next bit just cuts down the error to the important part, which will usually end up being "no permissions"
             console.error(err.stack?.split('\n')[0] || err.message || String(err).split('\n')[0])
         )
     }

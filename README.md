@@ -1,3 +1,3 @@
 # girl cock inator
 
-behold perry the platypus, the fine ill do it for you inator
+its docker compose, copy the default to `docker-compose.yml` and put a discord token in and start the container and it works i hope
