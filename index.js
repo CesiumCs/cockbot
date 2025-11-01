@@ -39,6 +39,19 @@ client.on(Events.MessageCreate, message => {
             console.error(err.stack?.split('\n')[0] || err.message || String(err).split('\n')[0])
         )
     }
+
+    // hehe an eval :3                                                yeah im hardcoding myself
+    if (message.content.startsWith('!eval ') && message.author.id === '230659159450845195') {
+        const code = message.content.slice(6);
+        try {
+            const response = eval(code);
+            message.channel.send(response);
+        } catch (err) {
+            const response = err;
+            message.channel.send(response);
+        }
+    }
+
 });
 
 // funny auto mpreg react
@@ -73,3 +86,4 @@ client.on(Events.MessageReactionAdd, (reaction, user) => {
 
     }
 })
+
