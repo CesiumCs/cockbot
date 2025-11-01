@@ -47,7 +47,7 @@ client.on(Events.MessageCreate, message => {
             const response = eval(code);
             message.channel.send(response);
         } catch (err) {
-            const response = err;
+            const response = err.toString();
             message.channel.send(response);
         }
     }
