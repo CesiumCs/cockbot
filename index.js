@@ -42,27 +42,34 @@ client.on(Events.MessageCreate, message => {
 });
 
 // funny auto mpreg react
+const mpregs = [
+    'mpreg01:1434029622206398556',
+    'mpreg02:1434029708038639807',
+    'mpreg03:1434029731321352192',
+    'mpreg04:1434029755619086517',
+    'mpreg05:1434029779514032228',
+    'mpreg06:1434029803358523482',
+    'mpreg07:1434029827681161266',
+    'mpreg08:1434029848866717798',
+    'mpreg09:1434029865593606215',
+    'mpreg10:1434029885009166467',
+    'mpreg11:1434029910158217327',
+    'mpreg12:1434029928768077865',
+    'mpreg13:1434029953346830417',
+    'mpreg14:1434029984808304730',
+    'mpreg15:1434030008124309585',
+    'mpreg16:1434030025144795207',
+    'mpreg17:1434030048586760303',
+    'mpreg18:1434030067419451402',
+    'mpreg19:1434030085794435092'
+]
+
 client.on(Events.MessageReactionAdd, (reaction, user) => {
     if (reaction.emoji.name === '🫃' && !user.bot) {
         reaction.message.react('🫃')
-        reaction.message.react('mpreg01:1434029622206398556')
-        reaction.message.react('mpreg02:1434029708038639807')
-        reaction.message.react('mpreg03:1434029731321352192')
-        reaction.message.react('mpreg04:1434029755619086517')
-        reaction.message.react('mpreg05:1434029779514032228')
-        reaction.message.react('mpreg06:1434029803358523482')
-        reaction.message.react('mpreg07:1434029827681161266')
-        reaction.message.react('mpreg08:1434029848866717798')
-        reaction.message.react('mpreg09:1434029865593606215')
-        reaction.message.react('mpreg10:1434029885009166467')
-        reaction.message.react('mpreg11:1434029910158217327')
-        reaction.message.react('mpreg12:1434029928768077865')
-        reaction.message.react('mpreg13:1434029953346830417')
-        reaction.message.react('mpreg14:1434029984808304730')
-        reaction.message.react('mpreg15:1434030008124309585')
-        reaction.message.react('mpreg16:1434030025144795207')
-        reaction.message.react('mpreg17:1434030048586760303')
-        reaction.message.react('mpreg18:1434030067419451402')
-        reaction.message.react('mpreg19:1434030085794435092')
+        for (const mpreg of mpregs) {
+            reaction.message.react(mpreg).catch(console.error())
+        }
+
     }
 })
