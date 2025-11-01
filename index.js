@@ -68,7 +68,7 @@ client.on(Events.MessageReactionAdd, (reaction, user) => {
     if (reaction.emoji.name === '🫃' && !user.bot) {
         reaction.message.react('🫃')
         for (const mpreg of mpregs) {
-            reaction.message.react(mpreg).catch(console.error())
+            reaction.message.react(mpreg).catch(err => console.error(err.stack?.split('\n')[0] || err.message || String(err).split('\n')[0]))
         }
 
     }
