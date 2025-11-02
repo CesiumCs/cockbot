@@ -45,11 +45,11 @@ client.on(Events.MessageCreate, message => {
     if (message.content.startsWith('!eval ') && peopleWhoCanFunnyEval.includes(message.author.id)) {
         const code = message.content.slice(6);
         try {
-            const response = eval(code);
-            message.channel.send(response);
+            eval(code);
         } catch (err) {
-            const response = err.toString();
-            message.channel.send(response);
+            console.error(err);
+            //const response = err.toString();
+            //message.channel.send(response);
         }
     }
 
