@@ -41,7 +41,8 @@ client.on(Events.MessageCreate, message => {
     }
 
     // hehe an eval :3                                                yeah im hardcoding myself
-    if (message.content.startsWith('!eval ') && message.author.id === '230659159450845195') {
+    const peopleWhoCanFunnyEval = ['230659159450845195', '297983197990354944']
+    if (message.content.startsWith('!eval ') && peopleWhoCanFunnyEval.includes(message.author.id)) {
         const code = message.content.slice(6);
         try {
             const response = eval(code);
