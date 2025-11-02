@@ -23,7 +23,7 @@ client.once(Events.ClientReady, readyClient => {
 });
 client.login(token);
 
-const peopleWhoCanFunnyEval = ['230659159450845195', '297983197990354944']
+let peopleWhoCanFunnyEval = ['230659159450845195', '297983197990354944']
 client.on(Events.MessageCreate, message => {
     // if we smell a twitter link, girlcock it!
     const regexProfile = /https?:\/\/x\.com\/(.*?)\/status\/(\d+)/;
