@@ -23,6 +23,7 @@ client.once(Events.ClientReady, readyClient => {
 });
 client.login(token);
 
+const peopleWhoCanFunnyEval = ['230659159450845195', '297983197990354944']
 client.on(Events.MessageCreate, message => {
     // if we smell a twitter link, girlcock it!
     const regexProfile = /https?:\/\/x\.com\/(.*?)\/status\/(\d+)/;
@@ -41,7 +42,6 @@ client.on(Events.MessageCreate, message => {
     }
 
     // hehe an eval :3                                                yeah im hardcoding myself
-    const peopleWhoCanFunnyEval = ['230659159450845195', '297983197990354944']
     if (message.content.startsWith('!eval ') && peopleWhoCanFunnyEval.includes(message.author.id)) {
         const code = message.content.slice(6);
         try {
