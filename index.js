@@ -24,6 +24,7 @@ client.once(Events.ClientReady, readyClient => {
 client.login(token);
 
 let peopleWhoCanFunnyEval = ['230659159450845195', '297983197990354944']
+
 client.on(Events.MessageCreate, message => {
     // if we smell a twitter link, girlcock it!
     const regexProfile = /https?:\/\/x\.com\/(.*?)\/status\/(\d+)/;
@@ -42,14 +43,21 @@ client.on(Events.MessageCreate, message => {
     }
 
     // hehe an eval :3                                                yeah im hardcoding myself
-    if (message.content.startsWith('!eval ') && peopleWhoCanFunnyEval.includes(message.author.id)) {
-        const code = message.content.slice(6);
+    if (message.content.startsWith('!eval') && peopleWhoCanFunnyEval.includes(message.author.id)) {
+        let code = message.content.substring('!eval'.length).trim();
+
+        // yeah a machine may have wrote this part
+        const codeBlockRegex = /```(?:js)?\n?([\s\S]+)```/;
+        const match = code.match(codeBlockRegex);
+
+        if (match) {
+            code = match[1];
+        }
+
         try {
             eval(code);
         } catch (err) {
             console.error(err);
-            //const response = err.toString();
-            //message.channel.send(response);
         }
     }
 
@@ -87,4 +95,3 @@ client.on(Events.MessageReactionAdd, (reaction, user) => {
 
     }
 })
-
