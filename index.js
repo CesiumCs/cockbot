@@ -23,7 +23,6 @@ client.once(Events.ClientReady, readyClient => {
 });
 client.login(token);
 
-let peopleWhoCanFunnyEval = ['230659159450845195', '297983197990354944']
 
 client.on(Events.MessageCreate, message => {
     // if we smell a twitter link, girlcock it!
@@ -41,8 +40,9 @@ client.on(Events.MessageCreate, message => {
             console.error(err.stack?.split('\n')[0] || err.message || String(err).split('\n')[0])
         )
     }
-
+    
     // hehe an eval :3                                                yeah im hardcoding myself
+    const peopleWhoCanFunnyEval = ['230659159450845195', '297983197990354944']
     if (message.content.startsWith('!eval') && peopleWhoCanFunnyEval.includes(message.author.id)) {
         let code = message.content.substring('!eval'.length).trim();
 
