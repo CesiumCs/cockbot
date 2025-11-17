@@ -2,5 +2,5 @@ services:
   bot:
     restart: unless-stopped
     build: .
-    environment:
-      - DISCORD_TOKEN=token go here
+    volumes:
+      - ./config.json:/usr/src/bot/config.json
