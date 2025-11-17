@@ -1,5 +1,4 @@
-const token = process.env.DISCORD_TOKEN
-
+const config = require('./config.json');
 // the basic discord setup stuff yoinked from their guide
 const { Client, Events, GatewayIntentBits, Partials, ActivityType, MessageFlags } = require('discord.js');
 const client = new Client({
@@ -15,14 +14,13 @@ const client = new Client({
         Partials.Message,
         Partials.Reaction,
         Partials.User
-      ]
+    ]
 });
 client.once(Events.ClientReady, readyClient => {
-	console.log(`Discord: Connected as ${readyClient.user.tag}`);
-    client.user.setActivity('for x.com links', { type: ActivityType.Watching });
+    console.log(`Discord: Connected as ${readyClient.user.tag}`);
+    client.user.setActivity(config.status, { type: ActivityType.Custom });
 });
-client.login(token);
-
+client.login(config.token);
 
 client.on(Events.MessageCreate, message => {
     // if we smell a twitter link, girlcock it!
@@ -41,9 +39,8 @@ client.on(Events.MessageCreate, message => {
         )
     }
     
-    // hehe an eval :3                                                yeah im hardcoding myself
-    const peopleWhoCanFunnyEval = ['230659159450845195', '297983197990354944']
-    if (message.content.startsWith('!eval') && peopleWhoCanFunnyEval.includes(message.author.id)) {
+    // hehe an eval :3
+    if (message.content.startsWith('!eval') && config.parentsAndOrGuardians.includes(message.author.id)) {
         let code = message.content.substring('!eval'.length).trim();
 
         // yeah a machine may have wrote this part
@@ -59,6 +56,12 @@ client.on(Events.MessageCreate, message => {
         } catch (err) {
             console.error(err);
         }
+    }
+    // hehe we do a little if stacking
+    if (message.content.startsWith('!status') && config.parentsAndOrGuardians.includes(message.author.id)) {
+        let status = message.content.substring('!status'.length).trim();
+        client.user.setActivity(status, { type: ActivityType.Custom });
+        config.status = status;
     }
 
     // wouldnt it be funny to react to 1 in like 10000 messages with emoji from a list
