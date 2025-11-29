@@ -16,6 +16,51 @@ const client = new Client({
         Partials.User
     ]
 });
+
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const swapRow = new ActionRowBuilder()
+    .addComponents(
+        new ButtonBuilder()
+            .setCustomId('swap_twitter')
+            .setLabel('Swap URL')
+            .setStyle(ButtonStyle.Secondary),
+    );
+
+function swapify(url) {
+    const girlcockRegex = /https?:\/\/girlcockx\.com\/(.*?)\/status\/(\d+)/;
+    const fxtwitterRegex = /https?:\/\/fxtwitter\.com\/(.*?)\/status\/(\d+)/;
+    let link = '';
+    if (url.match(girlcockRegex)) {
+        const original = url.match(girlcockRegex)[0];
+        const profile = url.match(girlcockRegex)[1];
+        const stub = url.match(girlcockRegex)[2];
+        console.log(`Button: Asked to swap ${url}, fxtwittering it`);
+        link = `https://fxtwitter.com/${profile}/status/${stub}`;
+    } else if (url.match(fxtwitterRegex)) {
+        const original = url.match(fxtwitterRegex)[0];
+        const profile = url.match(fxtwitterRegex)[1];
+        const stub = url.match(fxtwitterRegex)[2];
+        console.log(`Button: Asked to swap ${url}, cocking it again`);
+        link = `https://girlcockx.com/${profile}/status/${stub}`;
+    }
+    return link;
+}
+
+client.on(Events.InteractionCreate, async interaction => {
+    if (interaction.isButton()) {
+        if (interaction.customId === 'swap_twitter') {
+            try {
+                const regex = /https?:\/\/girlcockx\.com\/(.*?)\/status\/(\d+)/;
+                await interaction.update(swapify(interaction.message.content));
+            } catch (error) {
+                console.error(error);
+                await interaction.reply({ content: 'I couldn\'t swap them for some reason', ephemeral: true });
+            }
+        }
+        return;
+    }
+});
+
 client.once(Events.ClientReady, readyClient => {
     console.log(`Discord: Connected as ${readyClient.user.tag}`);
     client.user.setActivity(config.status, { type: ActivityType.Custom });
@@ -32,7 +77,7 @@ client.on(Events.MessageCreate, message => {
         console.log(`Chat: Detected ${original}, girlcocking it!`);
         const cocklink = `https://girlcockx.com/${profile}/status/${stub}`
         console.log(`Girlcock: Converted to ${cocklink}`)
-        message.channel.send({ content: cocklink, flags: MessageFlags.SuppressNotifications })
+        message.channel.send({ content: cocklink, flags: MessageFlags.SuppressNotifications, components: [swapRow] })
         message.suppressEmbeds().catch(err =>
             // this next bit just cuts down the error to the important part, which will usually end up being "no permissions"
             console.error(err.stack?.split('\n')[0] || err.message || String(err).split('\n')[0])
