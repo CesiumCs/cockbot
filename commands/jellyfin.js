@@ -161,7 +161,6 @@ module.exports = {
 				}
 
 				const res = await jelly.request(`/Items/${movieId}`);
-                console.log(res);
 				let out = `[${res.Name}](${config.jellyfin.url}/Items/${res.Id}/Download?api_key=${config.jellyfin.key})`;
 				out += `\n([h264 transcode if above fails](${config.jellyfin.url}/Videos/${res.Id}/stream?api_key=${config.jellyfin.key}&videoCodec=h264))`
 				out += `\n([480p transcode if above fails](${config.jellyfin.url}/Videos/${res.Id}/stream?api_key=${config.jellyfin.key}&videoCodec=h264&width=854&height=480))`
