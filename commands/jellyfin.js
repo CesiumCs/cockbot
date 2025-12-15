@@ -71,8 +71,10 @@ module.exports = {
 		if (!config.jellyfin.users.includes(interaction.user.id)) {
 			interaction.reply({ content: 'You are not authorized to use this command.', flags: 64 });
 			return;
+		} else if (interaction.channel.type !== 1) {
+			interaction.reply({ content: 'Please keep this command in DMs. It exposes a direct API key for my media server.', flags: 64 });
+			return;
 		}
-
 		const sub = interaction.options.getSubcommand();
 		const jelly = createClient(config.jellyfin || {});
 
