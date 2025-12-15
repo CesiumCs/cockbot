@@ -4,5 +4,12 @@
     "parentsAndOrGuardians": [
         "230659159450845195",
         "297983197990354944"
-    ]
+    ],
+    "jellyfin": {
+        "url": "https://media.example.com",
+        "key": "jellyfin user key (not generated)",
+        "users": [
+            "000000000000000000"
+        ]
+    }
 }
