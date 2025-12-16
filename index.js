@@ -113,7 +113,8 @@ client.on(Events.MessageCreate, message => {
     if (Math.random() < 0.0001 && !message.author.bot) {
         const customEmojis = [
             'Shitten:1430413059574206555',
-            'BLOWSUP:1430413011918651503'
+            'BLOWSUP:1430413011918651503',
+            'grin_cat:1445254917991436449'
         ];
         const randomEmoji = customEmojis[Math.floor(Math.random() * customEmojis.length)];
         message.react(randomEmoji);
