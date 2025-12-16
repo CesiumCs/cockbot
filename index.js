@@ -109,8 +109,8 @@ client.on(Events.MessageCreate, message => {
         config.status = status;
     }
 
-    // wouldnt it be funny to react to 1 in like 10000 messages with emoji from a list
-    if (Math.random() < 0.0001 && !message.author.bot) {
+    // wouldnt it be funny to react to 1 in like 1000 messages with emoji from a list
+    if (Math.random() < 0.001 && !message.author.bot) {
         const customEmojis = [
             'Shitten:1430413059574206555',
             'BLOWSUP:1430413011918651503',
