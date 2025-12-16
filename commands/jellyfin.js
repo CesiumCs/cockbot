@@ -65,6 +65,11 @@ module.exports = {
 				.setName('movie')
 				.setDescription('Get info about a movie')
                 .addStringOption((o) => o.setName('movie').setDescription('Movie ID or search term').setRequired(true))
+		).addSubcommand((s) =>
+			s
+				.setName('list')
+				.setDescription('List content on the server')
+                .addStringOption((o) => o.setName('type').setDescription('Type of either Movie or Series').setRequired(false).addChoices({name: 'Movie', value: 'movie'}, {name: 'Series', value: 'series'}))
 		),
 
 	async execute(interaction) {
@@ -162,8 +167,18 @@ module.exports = {
 
 				const res = await jelly.request(`/Items/${movieId}`);
 				let out = `[${res.Name}](${config.jellyfin.url}/Items/${res.Id}/Download?api_key=${config.jellyfin.key})`;
-				out += `\n([h264 transcode if above fails](${config.jellyfin.url}/Videos/${res.Id}/stream?api_key=${config.jellyfin.key}&videoCodec=h264))`
-				out += `\n([480p transcode if above fails](${config.jellyfin.url}/Videos/${res.Id}/stream?api_key=${config.jellyfin.key}&videoCodec=h264&width=854&height=480))`
+				out += ` [[h264](${config.jellyfin.url}/Videos/${res.Id}/stream?api_key=${config.jellyfin.key}&videoCodec=h264)]`
+				out += ` [[480p](${config.jellyfin.url}/Videos/${res.Id}/stream?api_key=${config.jellyfin.key}&videoCodec=h264&width=854&height=480)]`
+				return sendChunked(interaction, out);
+			}
+
+			if (sub === 'list') {
+				const type = interaction.options.getString('type');
+				const res = await jelly.request('/Items/Latest', {limit: 500, includeItemTypes: type || 'Movie,Series'});
+				const items = Array.isArray(res) ? res : [];
+				if (!items || items.length === 0) return await interaction.editReply('No content found');
+				const lines = items.map((it) => `${it.Name} - ${it.Id} (${it.Type || it.SeriesType || 'item'})`);
+                const out = `Listing content:\n${lines.join('\n')}`;
 				return sendChunked(interaction, out);
 			}
 
