@@ -17,6 +17,7 @@ const client = new Client({
     ]
 });
 
+// build the button below the message that swaps the URL
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const swapRow = new ActionRowBuilder()
     .addComponents(
@@ -26,6 +27,7 @@ const swapRow = new ActionRowBuilder()
             .setStyle(ButtonStyle.Secondary),
     );
 
+// the main function that swaps the URL, takes 
 function convertURL(url, regex, domain) {
     const match = url.match(regex);
     if (match) {
@@ -34,6 +36,7 @@ function convertURL(url, regex, domain) {
     }
 }
 
+// called by the swap button, swaps girlcock links to fxtwitter, and back again if needed
 function swapify(url) {
     const girlcockRegex = /https?:\/\/girlcockx\.com\/(.*?)\/status\/(\d+)/;
     const fxtwitterRegex = /https?:\/\/fxtwitter\.com\/(.*?)\/status\/(\d+)/;
@@ -45,15 +48,15 @@ function swapify(url) {
     return url; // give up, we'll just return the original URL
 }
 
+// what actually listens for the button press and calls swapify
 client.on(Events.InteractionCreate, async interaction => {
     if (interaction.isButton()) {
         if (interaction.customId === 'swap_twitter') {
             try {
-                const regex = /https?:\/\/girlcockx\.com\/(.*?)\/status\/(\d+)/;
                 await interaction.update(swapify(interaction.message.content));
-            } catch (error) {
+            } catch (error) { // honestly the swapify function has its own error handling and it should be fine but whatever
                 console.error(error);
-                await interaction.reply({ content: 'I couldn\'t swap them for some reason', ephemeral: true });
+                await interaction.reply({ content: "Something went wrong trying to swap the URL", ephemeral: true });
             }
         }
         return;
@@ -137,17 +140,15 @@ const mpregs = [
     'mpreg17:1434030048586760303',
     'mpreg18:1434030067419451402',
     'mpreg19:1434030085794435092'
-]
-
+];
 client.on(Events.MessageReactionAdd, (reaction, user) => {
     if (reaction.emoji.name === '🫃' && !user.bot) {
-        reaction.message.react('🫃')
+        reaction.message.react('🫃');
         for (const mpreg of mpregs) {
-            reaction.message.react(mpreg).catch(err => console.error(err.stack?.split('\n')[0] || err.message || String(err).split('\n')[0]))
+            reaction.message.react(mpreg).catch(err => console.error(err.stack?.split('\n')[0] || err.message || String(err).split('\n')[0]));
         }
-
     }
-})
+});
 
 // command handling for ./commands
 const fs = require('fs');
