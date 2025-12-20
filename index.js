@@ -82,12 +82,6 @@ client.on(Events.MessageCreate, message => {
         )
     }
     
-    if (message.content.startsWith('!status') && config.parentsAndOrGuardians.includes(message.author.id)) {
-        let status = message.content.substring('!status'.length).trim();
-        client.user.setActivity(status, { type: ActivityType.Custom });
-        config.status = status;
-    }
-
     // wouldnt it be funny to react to 1 in like 1000 messages with emoji from a list
     if (Math.random() < 0.001 && !message.author.bot) {
         const customEmojis = [
