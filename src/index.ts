@@ -1,4 +1,4 @@
-const config = require('./config.json');
+const config = require('../config.json');
 // the basic discord setup stuff yoinked from their guide
 const { Client, Events, GatewayIntentBits, Partials, ActivityType, MessageFlags, Collection } = require('discord.js');
 const client = new Client({

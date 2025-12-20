@@ -1,7 +1,7 @@
 // yoinked right from the guide
 
 const { REST, Routes } = require('discord.js');
-const { token } = require('./config.json');
+const { token } = require('../config.json');
 const fs = require('node:fs');
 const path = require('node:path');
 
