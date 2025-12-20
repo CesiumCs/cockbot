@@ -82,25 +82,6 @@ client.on(Events.MessageCreate, message => {
         )
     }
     
-    // hehe an eval :3
-    if (message.content.startsWith('!eval') && config.parentsAndOrGuardians.includes(message.author.id)) {
-        let code = message.content.substring('!eval'.length).trim();
-
-        // yeah a machine may have wrote this part
-        const codeBlockRegex = /```(?:js)?\n?([\s\S]+)```/;
-        const match = code.match(codeBlockRegex);
-
-        if (match) {
-            code = match[1];
-        }
-
-        try {
-            eval(code);
-        } catch (err) {
-            console.error(err);
-        }
-    }
-    // hehe we do a little if stacking
     if (message.content.startsWith('!status') && config.parentsAndOrGuardians.includes(message.author.id)) {
         let status = message.content.substring('!status'.length).trim();
         client.user.setActivity(status, { type: ActivityType.Custom });
