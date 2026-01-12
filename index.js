@@ -3,9 +3,9 @@ const config = require('./config.json');
 const { Client, Events, GatewayIntentBits, Partials, ActivityType, MessageFlags, Collection } = require('discord.js');
 const client = new Client({
     intents: [
-        GatewayIntentBits.Guilds, 
+        GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.DirectMessages, 
+        GatewayIntentBits.DirectMessages,
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMessageReactions
     ],
@@ -40,8 +40,10 @@ function convertURL(url, regex, domain) {
 function swapify(url) {
     const girlcockRegex = /https?:\/\/girlcockx\.com\/(.*?)\/status\/(\d+)/;
     const fxtwitterRegex = /https?:\/\/fxtwitter\.com\/(.*?)\/status\/(\d+)/;
+    const fixupxRegex = /https?:\/\/fixupx\.com\/(.*?)\/status\/(\d+)/;
     if (url.match(girlcockRegex)) return convertURL(url, girlcockRegex, "fxtwitter.com");
-    if (url.match(fxtwitterRegex)) return convertURL(url, fxtwitterRegex, "girlcockx.com");
+    if (url.match(fxtwitterRegex)) return convertURL(url, fxtwitterRegex, "fixupx.com");
+    if (url.match(fixupxRegex)) return convertURL(url, fixupxRegex, "girlcockx.com");
     // if we got this far, somethings not right but we'll try twitter before giving up
     const twitterRegex = /https?:\/\/x\.com\/(.*?)\/status\/(\d+)/;
     if (url.match(twitterRegex)) return convertURL(url, twitterRegex, "girlcockx.com");
@@ -81,7 +83,7 @@ client.on(Events.MessageCreate, message => {
             console.error("Removing original embed failed: " + err.stack?.split('\n')[0] || err.message || String(err).split('\n')[0])
         )
     }
-    
+
     // wouldnt it be funny to react to 1 in like 1000 messages with emoji from a list
     if (Math.random() < 0.001 && !message.author.bot) {
         const customEmojis = [
@@ -92,7 +94,7 @@ client.on(Events.MessageCreate, message => {
         const randomEmoji = customEmojis[Math.floor(Math.random() * customEmojis.length)];
         message.react(randomEmoji);
     }
-}); 
+});
 
 // funny auto mpreg react
 const mpregs = [
