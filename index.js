@@ -89,7 +89,13 @@ client.on(Events.MessageCreate, message => {
         const customEmojis = [
             'Shitten:1430413059574206555',
             'BLOWSUP:1430413011918651503',
-            'grin_cat:1445254917991436449'
+            'grin_cat:1445254917991436449',
+            'R_:1461939667657298081',
+            'crumble:1461939666121920605',
+            'jumble:1461939664306045008',
+            'scrumble:1461939662930055278',
+            'Chundle:1461939661541867713',
+            'chimgen:1461939660212408351'
         ];
         const randomEmoji = customEmojis[Math.floor(Math.random() * customEmojis.length)];
         message.react(randomEmoji);
