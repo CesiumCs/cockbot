@@ -4,3 +4,4 @@ services:
     build: .
     volumes:
       - ./config.json:/usr/src/bot/config.json
+      - ./avatars:/usr/src/bot/avatars

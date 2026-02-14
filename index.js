@@ -68,6 +68,8 @@ client.on(Events.InteractionCreate, async interaction => {
 client.once(Events.ClientReady, readyClient => {
     console.log(`Discord: Connected as ${readyClient.user.tag}`);
     client.user.setActivity(config.status, { type: ActivityType.Custom });
+    const avatarRotation = require('./lib/avatarRotation');
+    avatarRotation.init(client);
 });
 client.login(config.token);
 
